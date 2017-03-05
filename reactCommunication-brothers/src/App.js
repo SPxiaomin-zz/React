@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import AppChildOne from './components/AppChildOne';
+import AppChildTwo from './components/AppChildTwo';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            list: ['item1', 'item2'],
+            curItem: 'item1'
+        };
+    }
+
+    changeItem(item) {
+        this.setState({
+            curItem: item
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                The curItem is: {this.state.curItem}
+                <AppChildOne list={this.state.list} curItem={this.state.curItem} />
+                <AppChildTwo changeItem={(item) => {
+                    this.changeItem(item);
+                }} />
+            </div>
+        );
+    }
 }
 
 export default App;
