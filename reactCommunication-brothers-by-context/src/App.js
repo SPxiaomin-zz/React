@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import AppChildOneWrapper from './components/AppChildOneWrapper';
 import AppChildTwoWrapper from './components/AppChildTwoWrapper';
 
-// TODO: 疑惑——this.context.changeItem中的this，会保留原来环境中的this么？
 class App extends Component {
     constructor(props) {
         super(props);
