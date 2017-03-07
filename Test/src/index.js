@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './index.css';
+import $ from 'jquery';
 
 ReactDOM.render(
-  <App source="https://api.github.com/users/octocat/gists" />,
-  document.getElementById('root')
+    <App
+        promise={$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars')}
+    />,
+    document.getElementById('root')
 );

@@ -1,21 +1,49 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loading: true,
+            error: null,
+            data: null
+        };
+    }
+
+    render() {
+        let repoList;
+
+        if (this.state.loading) {
+            return <span>Loading...</span>;
+        } else if (this.state.error !== null) {
+            return <span>Error: {this.state.error.message}</span>;
+        } else {
+            let repos = this.state.data.items;
+
+            repoList = repos.map((repo) => {
+                return (
+                    <li>
+                        <a href={repo.html_url}>{repo.name}</a> ({repo.stargazers_count} stars) <br/> {repo.description}
+                    </li>
+                );
+            });
+        }
+
+        return (
+            <main>
+                <h1>Most Popular JavaScript Projects in Github</h1>
+                <ol>{repoList}</ol>
+            </main>
+        );
+    }
+
+    componentDidMount() {
+        this.props.promise.then(
+            value => this.setState({loading: false, data: value}),
+            error => this.setState({loading: false, error: error})
+        );
+    }
 }
 
 export default App;
