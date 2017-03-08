@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            value: 'Hello!'
+        };
+    }
+
+    handleChange(event) {
+        this.setState({
+            value: event.target.value
+        });
+    }
+
     render() {
+        let value = this.state.value;
+
         return (
-            <h1>{this.props.title}</h1>
+            <div>
+                <input type="text" value={value} onChange={(event) => {
+                    this.handleChange(event);
+                }} />
+                <p>{value}</p>
+            </div>
         );
     }
 }
-
-App.propTypes = {
-    title: React.PropTypes.string.isRequired
-};
-
-App.defaultProps = {
-    title: 'Hello World'
-};
 
 export default App;
