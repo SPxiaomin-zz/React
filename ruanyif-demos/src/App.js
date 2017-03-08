@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
+// import AppChildOne from './components/AppChildOne';
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            value: 'Hello!'
+            opacity: 1.0
         };
     }
 
-    handleChange(event) {
-        this.setState({
-            value: event.target.value
-        });
+    componentDidMount() {
+        this.timer = setInterval(() => {
+            let opacity = this.state.opacity;
+            opacity -= 0.05;
+
+            if (opacity < 0.1) {
+                opacity = 1.0;
+            }
+
+            this.setState({
+                opacity: opacity
+            });
+        }, 100);
     }
 
     render() {
-        let value = this.state.value;
-
         return (
-            <div>
-                <input type="text" value={value} onChange={(event) => {
-                    this.handleChange(event);
-                }} />
-                <p>{value}</p>
+            <div style={{opacity: this.state.opacity}}>
+                Hello {this.props.name}
             </div>
         );
     }
