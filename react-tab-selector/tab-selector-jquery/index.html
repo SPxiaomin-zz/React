@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tab selector jquery</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./jquery-3.2.0.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        var data = [
+            {name: 'Red', value: 'red'},
+            {name: 'Blue', value: 'blue'},
+            {name: 'Yellow', value: 'yellow'},
+            {name: 'Green', value: 'green'},
+            {name: 'White', value: 'white'}
+        ];
+
+        $.fn.TabSelector = function(options) {
+            // DOM 构建
+            var arr = [];
+            arr.push('<div class="tab-selector">');
+            arr.push('<label>', options.label, '</label>');
+            arr.push('<ul>');
+            options.data.forEach(function(item) {
+                arr.push('<li data-value="', item.value, '">');
+                arr.push(item.name);
+                arr.push('</li>')
+            });
+            arr.push('</ul>');
+
+            this.html(arr.join(''));
+
+            // 交互
+            
+        };
+
+        $('#container').TabSelector({data: data, selected: null, label: 'Color'})
+    </script>
+</body>
+</html>
