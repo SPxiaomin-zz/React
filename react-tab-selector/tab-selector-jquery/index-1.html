@@ -19,40 +19,46 @@
             {name: 'White', value: 'white'}
         ];
 
-        // TODO: 使用 es6 改写
-        $.fn.TabSelector = function(options) {
-            // DOM 构建
+        function render(options) {
             var arr = [];
             arr.push('<div class="tab-selector">');
             arr.push('<label>', options.label, '</label>');
             arr.push('<ul>');
-            options.data.forEach(function(item) {
-                arr.push('<li data-value="', item.value, '">');
-                arr.push(item.name);
-                arr.push('</li>')
+            options.data.forEach(function (item){
+                if (item.value === options.selected) {
+                    arr.push('<li class="selected" data-value="', item.value, '">');
+                    arr.push(item.name)
+                    arr.push('</li>');
+                } else {
+                    arr.push('<li data-value="', item.value, '">');
+                    arr.push(item.name)
+                    arr.push('</li>');
+                }
             });
             arr.push('</ul>');
             arr.push('</div>');
 
             this.html(arr.join(''));
+        }
+
+        $.fn.TabSelector = function(options) {
+            // DOM 构建
+            render.call(this, options);
 
             // 交互
-            var lastSelected = null;
+            let that = this;
             this.on('click', 'li', function() {
                 var $this = $(this);
 
-                if (lastSelected) {
-                    lastSelected.removeClass('selected');
-                }
-
-                $this.addClass('selected');
-                lastSelected = $this;
+                options.selected = $this.data('value');
+                render.call(that, options)
             });
 
             return this;
         };
 
-        $('#container').TabSelector({data: data, selected: null, label: 'Color'})
+        $('#container').TabSelector({data: data, selected: '', label: 'Color'});
     </script>
+
 </body>
 </html>
