@@ -27,11 +27,11 @@
             options.data.forEach(function (item){
                 if (item.value === options.selected) {
                     arr.push('<li class="selected" data-value="', item.value, '">');
-                    arr.push(item.name)
+                    arr.push(item.name);
                     arr.push('</li>');
                 } else {
                     arr.push('<li data-value="', item.value, '">');
-                    arr.push(item.name)
+                    arr.push(item.name);
                     arr.push('</li>');
                 }
             });
@@ -51,7 +51,7 @@
                 var $this = $(this);
 
                 options.selected = $this.data('value');
-                render.call(that, options)
+                render.call(that, options);
             });
 
             return this;
