@@ -11,7 +11,7 @@
 <body>
     <div id="container"></div>
     <script>
-        var data = [
+        let data = [
             {name: 'Red', value: 'red'},
             {name: 'Blue', value: 'blue'},
             {name: 'Yellow', value: 'yellow'},
@@ -20,25 +20,29 @@
         ];
 
         function render(options) {
-            var arr = [];
-            arr.push('<div class="tab-selector">');
-            arr.push('<label>', options.label, '</label>');
-            arr.push('<ul>');
-            options.data.forEach(function (item){
-                if (item.value === options.selected) {
-                    arr.push('<li class="selected" data-value="', item.value, '">');
-                    arr.push(item.name);
-                    arr.push('</li>');
-                } else {
-                    arr.push('<li data-value="', item.value, '">');
-                    arr.push(item.name);
-                    arr.push('</li>');
-                }
-            });
-            arr.push('</ul>');
-            arr.push('</div>');
+            let html = `
+                        <div class="tab-selector">
+                            <label>${options.label}</label>
+                            <ul>
+                                ${
+                                    options.data.map((item) => {
+                                        let selected = item.value ===
+                                                       options.selected ?
+                                                       'selected' : '';
 
-            this.html(arr.join(''));
+                                        return `
+                                                <li class="${selected}"
+                                                    data-value="${item.value}">
+                                                    ${item.name}
+                                                </li>
+                                                `;
+                                    }).join('')
+                                }
+                            </ul>
+                        </div>
+                       `;
+
+            this.html(html);
         }
 
         $.fn.TabSelector = function(options) {
@@ -48,7 +52,7 @@
             // 交互
             let that = this;
             this.on('click', 'li', function() {
-                var $this = $(this);
+                let $this = $(this);
 
                 options.selected = $this.data('value');
                 render.call(that, options);

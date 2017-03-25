@@ -8,7 +8,6 @@ class App extends Component {
         this.state = {
             selected: this.props.selected
         };
-
         this.handleOnClick = this.handleOnClick.bind(this);
     }
 
