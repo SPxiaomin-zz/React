@@ -41,7 +41,7 @@
             this.html(html);
 
             // 交互
-            let lastSelected = options.selected;
+            let lastSelected = null;
             this.on('click', 'li', function() {
                 let $this = $(this);
 
