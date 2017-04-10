@@ -25,7 +25,7 @@ function myApp(state = initialState, action) {
     switch (action.type) {
         case 'CHANGE_TEXT':
             return {
-                text: state.text == 'Hello' ? 'Stark' : 'Hello';
+                text: state.text == 'Hello' ? 'Stark' : 'Hello'
             };
         case 'BUTTON_CLICK':
             return {
@@ -117,3 +117,8 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
+
+// ReactDOM.render(
+//     <Test />,
+//     document.getElementById('root')
+// );
