@@ -3,61 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, bindActionCreators } from 'redux';
 import { Provider, connect } from 'react-redux';
 
-// action
-function changeText() {
-    return {
-        type: 'CHANGE_TEXT'
-    };
-}
-
-function buttonClick() {
-    return {
-        type: 'BUTTON_CLICK'
-    };
-}
-
-// reducer
-const initialState = {
-    text: 'Hello'
-};
-
-function myApp(state = initialState, action) {
-    switch (action.type) {
-        case 'CHANGE_TEXT':
-            return {
-                text: state.text == 'Hello' ? 'Stark' : 'Hello'
-            };
-        case 'BUTTON_CLICK':
-            return {
-                text: 'you just click button'
-            };
-        default:
-            return {
-                text: 'Hello'
-            };
-    }
-}
-
-// store
 let store = createStore(myApp);
-
-class Hello extends Component {
-    constructor(props) {
-        super(props);
-
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.props.actions.changeText();
-    }
-
-    render() {
-        return (
-            <h1 onClick={this.handleClick}>{this.props.text}</h1>
-        );
-    }
-}
 
 class Change extends Component {
     constructor(props) {
