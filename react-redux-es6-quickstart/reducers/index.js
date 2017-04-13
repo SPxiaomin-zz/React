@@ -2,7 +2,7 @@ const initialState = {
     text: 'Hello'
 };
 
-function myApp(state = initialState, action) {
+const myApp = (state = initialState, action) => {
     switch (action.type) {
         case 'CHANGE_TEXT':
             return {
@@ -17,4 +17,6 @@ function myApp(state = initialState, action) {
                 text: 'Hello'
             };
     }
-}
+};
+
+export default myApp;

@@ -16,7 +16,9 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default const VisibleHello = connect(
+const VisibleHello = connect(
     mapStateToProps,
     mapDispatchToProps
 )(Hello);
+
+export default VisibleHello;

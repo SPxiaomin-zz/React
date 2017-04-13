@@ -1,11 +1,11 @@
-export function changeText() {
+export const changeText = () => {
     return {
         type: 'CHANGE_TEXT'
     };
-}
+};
 
-export function buttonClick() {
+export const buttonClick = () => {
     return {
         type: 'BUTTON_CLICK'
     };
-}
+};
