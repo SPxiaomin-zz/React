@@ -1,11 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import $ from 'jquery';
+import { createStore } from 'redux';
+import Counter from './components/Counter';
+import counter from './reducers';
+import { Increment, Decrement } from './actions';
 
-ReactDOM.render(
-    <App
-        promise={$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars')}
+const store = createStore(counter);
+const rootEl = document.getElementById('root');
+
+const render = () => ReactDOM.render(
+    <Counter
+        value={store.getState()}
+        onIncrement={() => store.dispatch(Increment())}
+        onDecrement={() => store.dispatch(Decrement())}
     />,
-    document.getElementById('root')
+    rootEl
 );
+
+render();
+store.subscribe(render);

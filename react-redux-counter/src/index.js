@@ -16,3 +16,6 @@ const render = () => ReactDOM.render(
     />,
     rootEl
 );
+
+render();
+store.subscribe(render);
