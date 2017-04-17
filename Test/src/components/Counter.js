@@ -28,7 +28,9 @@ export default class Counter extends Component {
                 {' '}
                 <button onClick={onDecrement}>-</button>
                 {' '}
-                {/* TODO: stop writing here */}
+                <button onClick={this.incrementIfOdd.bind(this)}>Increment if odd</button>
+                {' '}
+                <button onClick={this.incrementAsync.bind(this)}>Increment async</button>
             </p>
         );
     }
