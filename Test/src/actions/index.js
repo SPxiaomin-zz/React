@@ -1,11 +1,11 @@
-export const Increment = () => {
+export const changeText = () => {
     return {
-        type: 'INCREMENT'
+        type: 'CHANGE_TEXT'
     };
 };
 
-export const Decrement = () => {
+export const buttonClick = () => {
     return {
-        type: 'DECREMENT'
+        type: 'BUTTON_CLICK'
     };
 };
