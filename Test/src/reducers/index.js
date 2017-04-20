@@ -13,10 +13,8 @@ const myApp = (state = initialState, action) => {
                 text: 'you just click button'
             };
         default:
-            return {
-                text: 'Hello'
-            };
+            return state;
     }
-}
+};
 
 export default myApp;

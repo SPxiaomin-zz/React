@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Hello from '../components/Hello';
-import { changeText } from '../actions';
+import { VisibleHello } from '../actions';
 
 function mapStateToProps(state) {
     return {
@@ -11,7 +11,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         changeText: () => {
-            dispatch(changeText());
+            dispatch(VisibleHello());
         }
     };
 }
