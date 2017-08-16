@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, bindActionCreators } from 'redux';
-import { Provider } from 'react-redux';
-import myApp from './reducers';
-import App from './components/App';
-
-let store = createStore(myApp);
+// import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
-);
+  <App
+    values={['State.', 'should.', 'Be.', 'Synchronous.']}
+    onSelect={value => console.log(value)}
+  />,
+  document.getElementById('root'));
+registerServiceWorker();

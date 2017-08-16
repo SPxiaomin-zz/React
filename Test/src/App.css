@@ -1,4 +1,4 @@
-/*.App {
+.App {
   text-align: center;
 }
 
@@ -21,10 +21,10 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}*/
+}
 
-.container {
-    width: 300px;
-    
-    margin: 0 auto;
+/**/
+
+.selection {
+  color: red;
 }

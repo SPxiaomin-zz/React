@@ -1,50 +1,62 @@
 import React, { Component } from 'react';
+// import logo from './logo.svg';
+import './App.css';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      selection: props.values[0]
+    };
 
-        this.state = {
-            loading: true,
-            data: null,
-            error: null
-        };
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
+
+  fireOnSelect() {
+    if (typeof this.props.onSelect === 'function') {
+      this.props.onSelect(this.state.selection);
+    }
+  }
+
+  onSelect(value) {
+    this.setState({
+      selection: value
+    });
+    this.fireOnSelect();
+  }
+
+  onKeyDown(e) {
+    const { values } = this.props;
+    const idx = values.indexOf(this.state.selection);
+
+    if (e.keyCode === 38 && idx > 0) {
+      this.setState({
+        selection: values[idx - 1]
+      });
+    } else if (e.keyCode === 40 && idx < values.length - 1) {
+      this.setState({
+        selection: values[idx - 1]
+      });
     }
 
-    render() {
-        let repoList;
+    this.fireOnSelect();
+  }
 
-        if (this.state.loading) {
-            return <span>Loading...</span>;
-        } else if (this.state.error !== null) {
-            return <span>Error: {this.state.error.message}</span>;
-        } else {
-            let repos = this.state.data.items;
-
-            repoList = repos.map((repo) => {
-                return (
-                    <li>
-                        <a href={repo.html_url}>{repo.name}</a>（{repo.stargazers_count} stars）
-                        <br/> {repo.description}
-                    </li>
-                );
-            });
-        }
-
-        return (
-            <div>
-                <h1>Most Popular JavaScript Projects in Github</h1>
-                <ol>{repoList}</ol>
-            </div>
-        );
-    }
-
-    componentDidMount() {
-        this.props.promise.then(
-            value => this.setState({ loading: false, data: value }),
-            error => this.setState({ loading: false, error: error })
-        );
-    }
+  render() {
+    return (
+      <ul onKeyDown={this.onKeyDown} tabIndex={0}>
+        {this.props.values.map(value => (
+          <li
+            className={value === this.state.selection ? 'selection' : ''}
+            key={value}
+            onClick={() => this.onSelect(value)}
+          >
+            {value}
+          </li>
+        ))}
+      </ul>
+    );
+  }
 }
 
 export default App;
