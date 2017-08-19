@@ -1,62 +1,149 @@
-import React, { Component } from 'react';
+/* global $ */
+// import React, { Component } from 'react';
 // import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 
-class App extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      selection: props.values[0]
-    };
+// class App extends Component {
+//
+// }
+// export default App;
+import React, { Component } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  withRouter,
+} from 'react-router-dom'
 
-    this.onKeyDown = this.onKeyDown.bind(this);
-  }
+import { connect } from 'react-redux';
 
-  fireOnSelect() {
-    if (typeof this.props.onSelect === 'function') {
-      this.props.onSelect(this.state.selection);
-    }
-  }
+import { PLAY, TOGGLE_START, TOGGLE_FIRST } from './action';
 
-  onSelect(value) {
-    this.setState({
-      selection: value
-    });
-    this.fireOnSelect();
-  }
+// let Home = ({ counter }) => (
+// );
 
-  onKeyDown(e) {
-    const { values } = this.props;
-    const idx = values.indexOf(this.state.selection);
-
-    if (e.keyCode === 38 && idx > 0) {
-      this.setState({
-        selection: values[idx - 1]
+class Home extends Component {
+  componentDidMount() {
+    $('#player')
+      .jPlayer({
+        supplied: 'mp3'
       });
-    } else if (e.keyCode === 40 && idx < values.length - 1) {
-      this.setState({
-        selection: values[idx - 1]
-      });
-    }
 
-    this.fireOnSelect();
+    if (this.props.isFirst) {
+      $('#player')
+        .jPlayer('setMedia', {
+          mp3: this.props.musiclist[this.props.currentIndex].file
+        });
+
+      this.props.toggleFirst();
+    }
+      // .jPlayer('setMedia', {
+      //   mp3: this.props.musiclist[this.props.currentIndex].file
+      // });
+      // .jPlayer('setMedia', {
+      //   mp3: this.props.musiclist[0].file
+      // })
+      // .jPlayer('play');
   }
 
   render() {
     return (
-      <ul onKeyDown={this.onKeyDown} tabIndex={0}>
-        {this.props.values.map(value => (
-          <li
-            className={value === this.state.selection ? 'selection' : ''}
-            key={value}
-            onClick={() => this.onSelect(value)}
-          >
-            {value}
-          </li>
-        ))}
-      </ul>
+      <div>
+        <h2>Home</h2>
+        <p>currentMusic: {this.props.musiclist[this.props.currentIndex].name}</p>
+        <button onClick={() => {
+            this.props.isStart ? $('#player').jPlayer('pause') : $('#player').jPlayer('play');
+            this.props.toggleStart();
+          }}
+        >
+          isStart: {this.props.isStart ? 'STOP' : 'START'}
+        </button>
+      </div>
     );
   }
 }
 
-export default App;
+const mapStateToHomeProps = (state) => ({
+  musiclist: state.musiclist,
+  currentIndex: state.currentIndex,
+  isStart: state.isStart,
+  isFirst: state.isFirst,
+});
+
+const mapDispatchToHomeProps = (dispatch) => ({
+  toggleStart: () => {
+    dispatch(TOGGLE_START());
+  },
+  toggleFirst: () => {
+    dispatch(TOGGLE_FIRST());
+  },
+});
+
+Home = withRouter(connect(
+  mapStateToHomeProps,
+  mapDispatchToHomeProps
+)(Home));
+
+let About = ({ musiclist, clickPlay }) => {
+  let playMusic = (music) => {
+    $('#player')
+      .jPlayer('setMedia', {
+        mp3: music.file
+      })
+      .jPlayer('play');
+  };
+
+  return (
+    <div>
+      <h2>About</h2>
+      <ul>
+        {
+          musiclist.map((music, index) => {
+            return (
+              <li
+                key={index}
+                onClick={() => {
+                  playMusic(music);
+                  clickPlay(index);
+                }}
+              >
+                {music.name}
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  );
+};
+
+const mapStateToAboutProps = (state) => ({
+  musiclist: state.musiclist
+});
+
+const mapDispatchToAboutProps = dispatch => ({
+  clickPlay: (index) => dispatch(PLAY(index))
+});
+
+About = withRouter(connect(
+  mapStateToAboutProps,
+  mapDispatchToAboutProps
+)(About));
+
+const BasicExample = () => (
+  <Router>
+    <div>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/about">About</Link></li>
+      </ul>
+
+      <hr/>
+
+      <Route exact path="/" component={Home}/>
+      <Route path="/about" component={About}/>
+    </div>
+  </Router>
+);
+
+export default BasicExample;
