@@ -12,6 +12,7 @@ const initState = {
   ],
   currentIndex: 0,
   isFirst: true,
+  progress: 0,
 };
 
 export default (state = initState, action) => {
@@ -31,6 +32,11 @@ export default (state = initState, action) => {
       return {
         ...state,
         isFirst: !state.isFirst,
+      };
+    case 'CHANGE_PROGRESS':
+      return {
+        ...state,
+        progress: action.progress,
       };
     default:
       return state;

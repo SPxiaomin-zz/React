@@ -10,3 +10,8 @@ export const TOGGLE_START = () => ({
 export const TOGGLE_FIRST = () => ({
   type: 'TOGGLE_FIRST'
 });
+
+export const CHANGE_PROGRESS = (progress) => ({
+  type: 'CHANGE_PROGRESS',
+  progress,
+});

@@ -17,7 +17,12 @@ import {
 
 import { connect } from 'react-redux';
 
-import { PLAY, TOGGLE_START, TOGGLE_FIRST } from './action';
+import {
+  PLAY,
+  TOGGLE_START,
+  TOGGLE_FIRST,
+  CHANGE_PROGRESS,
+} from './action';
 
 // let Home = ({ counter }) => (
 // );
@@ -37,6 +42,13 @@ class Home extends Component {
 
       this.props.toggleFirst();
     }
+
+    $('#player')
+      .on($.jPlayer.event.timeupdate, (e) => {
+        // console.log(e.jPlayer.status.currentTime);
+        // console.log(e.jPlayer.status.currentPercentAbsolute)
+        this.props.changeProgress(e.jPlayer.status.currentPercentAbsolute);
+      });
       // .jPlayer('setMedia', {
       //   mp3: this.props.musiclist[this.props.currentIndex].file
       // });
@@ -44,6 +56,10 @@ class Home extends Component {
       //   mp3: this.props.musiclist[0].file
       // })
       // .jPlayer('play');
+  }
+
+  progressChangeHandler(e) {
+
   }
 
   render() {
@@ -58,6 +74,16 @@ class Home extends Component {
         >
           isStart: {this.props.isStart ? 'STOP' : 'START'}
         </button>
+
+        <hr />
+
+        <div style={{ height: '5px', backgroundColor: '#ddd' }} onClick={(e) => {
+          this.progressChangeHandler(e);
+        }}>
+          <div style={{ height: '5px', backgroundColor: '#2f9842', width: `${this.props.progress}%` }}>
+
+          </div>
+        </div>
       </div>
     );
   }
@@ -68,6 +94,7 @@ const mapStateToHomeProps = (state) => ({
   currentIndex: state.currentIndex,
   isStart: state.isStart,
   isFirst: state.isFirst,
+  progress: state.progress,
 });
 
 const mapDispatchToHomeProps = (dispatch) => ({
@@ -77,6 +104,9 @@ const mapDispatchToHomeProps = (dispatch) => ({
   toggleFirst: () => {
     dispatch(TOGGLE_FIRST());
   },
+  changeProgress: (progress) => {
+    dispatch(CHANGE_PROGRESS(progress));
+  }
 });
 
 Home = withRouter(connect(
