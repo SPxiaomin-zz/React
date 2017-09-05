@@ -2,9 +2,16 @@ import React, { Component, PureComponent } from 'react';
 // import logo from './logo.svg';
 // import './App.css';
 
-class SubApp extends PureComponent {
+import Immutable from 'immutable';
+
+import Perf from 'react-addons-perf';
+
+let words = null;
+
+class SubApp extends Component {
   render() {
-    console.log(this.props.words);
+    // console.log(this.props.words);
+    console.log(this.props.words === words);
     return (
       <div>{this.props.words.join(',')}</div>
     );
@@ -16,8 +23,10 @@ class App extends Component {
     super(props);
 
     this.state = {
-      words: ['gujunmin'],
+      words: Immutable.List(['gujunmin']),
     };
+
+    words = this.state.words;
 
     this.clickHandler = this.clickHandler.bind(this);
   }
@@ -33,7 +42,8 @@ class App extends Component {
 
     this.setState((prevState) => ({
       // words: prevState.words.concat('boy'),
-      words: [...prevState.words, 'boy'],
+      // words: [...prevState.words, 'boy'],
+      words: prevState.words.push('boy'),
     }));
   }
 
