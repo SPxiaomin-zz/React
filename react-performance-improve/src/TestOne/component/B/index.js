@@ -15,7 +15,7 @@ class B extends Component {
     console.log('B componentDidUpdate');
   }
 
-  componentWilUnmount() {
+  componentWillUnmount() {
     console.log('B componentWillUnmount');
   }
 

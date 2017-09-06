@@ -16,6 +16,7 @@ class App extends Component {
 
     this.differentType = this.differentType.bind(this);
     this.listWithoutKey = this.listWithoutKey.bind(this);
+    this.differentAttr = this.differentAttr.bind(this);
   }
 
   changeShape() {
@@ -54,11 +55,26 @@ class App extends Component {
     if (this.state.shape) {
       return (
         <div>
-          {/* TODO: stop writing here */}
+          <A key='a' />
+          <B key='b' />
         </div>
       );
     } else {
+      return (
+        <div>
+          <A key='a' />
+          <C key='c' />
+          <B key='b' />
+        </div>
+      );
+    }
+  }
 
+  differentAttr() {
+    if (this.state.shape) {
+      return <A name='before' />;
+    } else {
+      return <A name='after' />;
     }
   }
 
@@ -69,7 +85,14 @@ class App extends Component {
         {
           this.differentType()
         } */}
-        <button onClick={this.changeShape}>Change List</button>
+        {/* <button onClick={this.changeShape}>Change List</button>
+        {
+          this.listWithoutKey()
+        } */}
+        <button onClick={this.changeShape}>Change Attr</button>
+        {
+          this.differentAttr()
+        }
       </div>
     );
   }
