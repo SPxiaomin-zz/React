@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import withHeader from '../../utils/HOC/withHeader';
+// import withHeader from '../../utils/HOC/withHeader';
 
 class Demo extends Component {
   render() {
@@ -12,4 +12,4 @@ class Demo extends Component {
   }
 }
 
-export default withHeader(Demo);
+export default Demo;
