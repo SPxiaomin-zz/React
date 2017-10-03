@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
-import App from './TestOne/component/App';
+// import App from './TestOne/component/App';
+import App from './Test/components/App';
 import registerServiceWorker from './registerServiceWorker';
 
 import { createStore } from 'redux';
