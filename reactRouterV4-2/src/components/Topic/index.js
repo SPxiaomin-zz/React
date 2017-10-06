@@ -1,5 +1,7 @@
 import React from 'react';
 
-export default () => {
-// TODO: stop writing here
-};
+export default ({ match }) => (
+  <div>
+    <h3>{match.params.topicId}</h3>
+  </div>
+);

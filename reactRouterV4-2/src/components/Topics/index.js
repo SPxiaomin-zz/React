@@ -6,18 +6,22 @@ import {
 
 import Topic from '../Topic';
 
-export default () => {
+export default ({ match }) => {
+  console.log(match);
+
   return (
     <div>
+      <h2>Topics</h2>
+
       <ul>
-        <li></li>
+        <li><Link to={`${match.url}/topic-one`}>Topic one</Link></li>
+        <li><Link to={`${match.url}/topic-two`}>Topic one</Link></li>
       </ul>
 
-      <Route path={} component={Topic} />
-      <Route path={} component={Topic} />
-      <Route path={} render={() => {
-        return ();
-      }} />
+      <Route path={`${match.url}/:topicId`} component={Topic} />
+      <Route exact path={match.url} render={() => (
+          <h3>Please select a topic!</h3>
+      )} />
     </div>
   );
 };
